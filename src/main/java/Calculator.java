@@ -4,6 +4,7 @@ public class Calculator {
 
     public static void main(String[] args) {
 
+        // Создание нового сканера для чтения ввода пользователя
         Scanner scanner = new Scanner(System.in);
 
         String operator;
@@ -11,15 +12,30 @@ public class Calculator {
 
         // Запрос первого числа у пользователя
         System.out.print("Введите первое число: ");
+        while (!scanner.hasNextDouble()) {
+            System.out.println("Ошибка: введите корректное число");
+            System.out.print("Введите первое число: ");
+            scanner.next();
+        }
         number1 = scanner.nextDouble();
 
         // Запрос второго числа у пользователя
         System.out.print("Введите второе число: ");
+        while (!scanner.hasNextDouble()) {
+            System.out.println("Ошибка: введите корректное число");
+            System.out.print("Введите второе число: ");
+            scanner.next();
+        }
         number2 = scanner.nextDouble();
 
         // Запрос оператора у пользователя
         System.out.print("Введите оператор (+, -, * или /): ");
         operator = scanner.next();
+        while (!isValidOperator(operator)) {
+            System.out.println("Ошибка: некорректный оператор");
+            System.out.print("Введите оператор (+, -, * или /): ");
+            operator = scanner.next();
+        }
 
         // Вызов метода calculations для выполнения операции
         double result = calculations(number1, number2, operator);
@@ -61,6 +77,11 @@ public class Calculator {
 
         return result;
 
+    }
+
+    // Метод проверяет, является ли оператор корректным (+, -, * или /)
+    public static boolean isValidOperator(String operator) {
+        return operator.equals("+") || operator.equals("-") || operator.equals("*") || operator.equals("/");
     }
 
 }
